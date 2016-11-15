@@ -5,7 +5,7 @@ import java.nio.file.Paths;
 import java.util.Map;
 
 /**
- * Created by Mykhailo on 11/14/2016.
+ * forRST: general. Should I create separate class for methods like "replacer", "fileContentReplacer" below
  */
 public class WorkFile {
 
@@ -65,6 +65,11 @@ public class WorkFile {
      * @return String with text from file
      */
     public String readFile() throws IOException {
+        /*
+        forRST: is there a better class to read from file string text?
+        How can I read cyrillic text
+         */
+
         String buffer = "";
         try(FileInputStream in = new FileInputStream(inputFile)){
             int b;
@@ -81,7 +86,9 @@ public class WorkFile {
      * write string to the outputFile
      */
     public void writeFile(String text) throws IOException{
-
+        /*
+        forRST: is there a better class to write string text to file ?
+        */
         try(PrintWriter out = new PrintWriter ( outputFile )){
             out.print(text);
         }
@@ -92,6 +99,10 @@ public class WorkFile {
      * add string to the outputFile
      */
     public void addToFile(String text)throws IOException{
+
+        /*
+        forRST: is there a better class to write string text to file ?
+        */
 
         try(PrintWriter out = new PrintWriter ( new FileOutputStream(outputFile, true) )){
             out.append(text);
@@ -107,6 +118,7 @@ public class WorkFile {
         String result = null;
 
         // receive distinct words from inputFile
+        //forRST: is there a possibility to make more complex split options (split by space AND by paragraph AND by coma) ?
         String[] words = readFile()
                 .split(" ");
 
