@@ -131,6 +131,33 @@ public class WorkFile {
         }
 
         //join words and return
+
+        /*
+        forRST: IDEA don't like line below:
+
+        Static member 'java.lang.String.join(java.lang.CharSequence, java.lang.CharSequence...)' accessed via instance reference less... (Ctrl+F1)
+        Shows references to static methods and fields via class instance rather than a class itself.
+
+         Method invocation 'join' may produce 'java.lang.NullPointerException' less... (Ctrl+F1)
+        This inspection analyzes method control and data flow to report possible conditions that
+        are always true or false, expressions whose value is statically proven to be constant,
+        and situations that can lead to nullability contract violations.
+        Variables, method parameters and return values marked as @Nullable or @NotNull are treated as nullable
+        (or not-null, respectively) and used during the analysis to check nullability contracts, e.g. report NullPointerException
+        (NPE) errors that might be produced.
+        More complex contracts can be defined using @Contract annotation, for example:
+        @Contract("_, null -> null") — method returns null if its second argument is null
+        @Contract("_, null -> null; _, !null -> !null") — method returns null if its second argument is null and not-null otherwise
+        @Contract("true -> fail") — a typical assertFalse method which throws an exception if true is passed to it
+        The inspection can be configured to use custom @Nullable
+        @NotNull annotations (by default the ones from annotations.jar will be used)
+
+        Confusing argument 'words', unclear if a varargs or non-varargs call is desired less... (Ctrl+F1)
+        Reports any calls to a variable arity method where the call has a single argument in the variable
+        arity parameter position, which is either a null or an array of a subtype of the variable arity parameter.
+        Such an argument may be confusing as it is unclear if a varargs or non-varargs call is desired. For example System.out.printf("%s", null).
+
+         */
         return result.join(" ",words);
     }
 
