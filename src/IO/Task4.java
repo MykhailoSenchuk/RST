@@ -14,7 +14,7 @@ import java.io.IOException;
 public class Task4 {
     public static void main(String[] args) {
 
-        String path = "src/module11/homework/Task";
+        String path = "src/IO/Task";
         WorkFile workFile = new WorkFile(path);
         String searchWord = "file";
         try{

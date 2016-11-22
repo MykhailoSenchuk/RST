@@ -1,7 +1,10 @@
 package IO;
 
 import java.io.*;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.nio.file.StandardOpenOption;
 import java.util.Map;
 
 /**
@@ -72,13 +75,8 @@ public class WorkFile {
          // forMHS: use https://docs.oracle.com/javase/7/docs/api/java/lang/StringBuilder.html
          // forMHS: http://stackoverflow.com/questions/5234147/why-stringbuilder-when-there-is-string/5234160#5234160
          // forMHS: http://stackoverflow.com/questions/18453458/string-builder-vs-string-concatenation/18453485#18453485
-        String buffer = "";
-        try(FileInputStream in = new FileInputStream(inputFile)){
-            int b;
-            while(( b = in.read() ) != -1) {
-                buffer = buffer + (char) b;
-            }
-        }
+
+        String buffer = new String(Files.readAllBytes( Paths.get( inputFile.getPath() ) ), StandardCharsets.UTF_8);
 
         return buffer;
     }
@@ -92,9 +90,7 @@ public class WorkFile {
         forRST: is there a better class to write string text to file ?
         forMHS: http://www.adam-bien.com/roller/abien/entry/java_7_writing_a_string
         */
-        try(PrintWriter out = new PrintWriter ( outputFile )){
-            out.print(text);
-        }
+        Files.write(Paths.get( outputFile.getPath() ), text.getBytes());
     }
 
 
@@ -107,10 +103,7 @@ public class WorkFile {
         forRST: is there a better class to write string text to file ?
         forMHS: http://www.adam-bien.com/roller/abien/entry/java_7_writing_a_string
         */
-
-        try(PrintWriter out = new PrintWriter ( new FileOutputStream(outputFile, true) )){
-            out.append(text);
-        }
+        Files.write(Paths.get( outputFile.getPath() ), text.getBytes(), StandardOpenOption.APPEND);
     }
 
     /**
@@ -119,7 +112,7 @@ public class WorkFile {
      * @throws IOException
      */
     public String replacer(Map<String, String> map) throws IOException{
-        String result = null;
+        String result = readFile();
 
         //forMHS: btw, you'd better use 
         // https://docs.oracle.com/javase/8/docs/api/java/lang/String.html#replace-java.lang.CharSequence-java.lang.CharSequence-
@@ -129,48 +122,12 @@ public class WorkFile {
         // receive distinct words from inputFile
         //forRST: is there a possibility to make more complex split options (split by space AND by paragraph AND by coma) ?
         //forMHS: http://docs.oracle.com/javase/7/docs/api/java/lang/String.html#split(java.lang.String) splits by any Regular Expression.
-        String[] words = readFile()
-                .split(" ");
 
-        // replace words
-        for (int i = 0; i < words.length; i++) {
-            String replaceFor = map.get(words[i]);
-            if(replaceFor != null){
-                words[i] = replaceFor;
-            }
+        for (Map.Entry<String, String> entry : map.entrySet()) {
+            result = result.replace(entry.getKey(),entry.getValue());
         }
 
-        //join words and return
-
-        /*
-        forRST: IDEA don't like line below:
-
-        Static member 'java.lang.String.join(java.lang.CharSequence, java.lang.CharSequence...)' accessed via instance reference less... (Ctrl+F1)
-        Shows references to static methods and fields via class instance rather than a class itself.
-
-         Method invocation 'join' may produce 'java.lang.NullPointerException' less... (Ctrl+F1)
-        This inspection analyzes method control and data flow to report possible conditions that
-        are always true or false, expressions whose value is statically proven to be constant,
-        and situations that can lead to nullability contract violations.
-        Variables, method parameters and return values marked as @Nullable or @NotNull are treated as nullable
-        (or not-null, respectively) and used during the analysis to check nullability contracts, e.g. report NullPointerException
-        (NPE) errors that might be produced.
-        More complex contracts can be defined using @Contract annotation, for example:
-        @Contract("_, null -> null") — method returns null if its second argument is null
-        @Contract("_, null -> null; _, !null -> !null") — method returns null if its second argument is null and not-null otherwise
-        @Contract("true -> fail") — a typical assertFalse method which throws an exception if true is passed to it
-        The inspection can be configured to use custom @Nullable
-        @NotNull annotations (by default the ones from annotations.jar will be used)
-
-        Confusing argument 'words', unclear if a varargs or non-varargs call is desired less... (Ctrl+F1)
-        Reports any calls to a variable arity method where the call has a single argument in the variable
-        arity parameter position, which is either a null or an array of a subtype of the variable arity parameter.
-        Such an argument may be confusing as it is unclear if a varargs or non-varargs call is desired. For example System.out.printf("%s", null).
-
-         */
-         // forMHS: https://docs.oracle.com/javase/8/docs/api/java/lang/String.html#join-java.lang.CharSequence-java.lang.CharSequence...-
-         // forMHS: this is a *static* method and should be referenced as "String.join(" ", words)". That's one of Java design faults, but that's what we have.
-        return result.join(" ",words);
+        return result;
     }
 
     /**
@@ -199,29 +156,14 @@ public class WorkFile {
 
 
     /**
-     * Counts quantity of searched word in inputFile
+     * Counts quantity(case insensetive) of searched word in inputFile
      * @param searchWord
      * @return Print number of times searchWord repeated in the file, 0 if wasn't found
      * @throws IOException
      */
     public int countWord (String searchWord) throws IOException {
 
-        int count = 0;
-
-        // receive distinct words from inputFile
-        String[] words = readFile()
-                .split(" ");
-
-                // forMHS: I don't like this implementation, but I haven't got it yet.
-        //search for the word
-        for (String word : words) {
-            String pureWord = word.replaceAll("[^A-Za-z]+", "");
-            if (pureWord == null)
-                continue;
-            if (pureWord.equalsIgnoreCase(searchWord))
-                count++;
-        }
-        return count;
+        return readFile().split("(?i)"+searchWord).length-1;
     }
 
     public File getInputFile() {

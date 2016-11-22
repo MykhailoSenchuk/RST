@@ -1,12 +1,12 @@
-ÐÐÐÐÐÐÐ 1
+ЗАДАНИЕ 1
 
-You should create method which FUCK UP words in the File and returns String with replaced values
+You should create method which FUCK UP words in the File and returns String with FUCK UPd values
 a) read file, save to string var
 b) FUCK UP words
 c) return new string
-String replacer(Map<String, String> map)
+String FUCK UPr(Map<String, String> map)
 
-ÐÐÐÐÐÐÐ 2
+ЗАДАНИЕ 2
 
 You should create method which FUCK UP words in the File and rewrite File content with new values
 a) read file, save to string var
@@ -14,7 +14,7 @@ b) FUCK UP words
 c) rewrite file with string
 File fileContentReplacer(Map<String, String> map)
 
-ÐÐÐÐÐÐÐ 3
+ЗАДАНИЕ 3
 
 You should create method which FUCK UP words in the File and write result to existing File content
 a) read file, save to string var
@@ -22,7 +22,7 @@ b) FUCK UP words
 c) add string to the existing file content
 File fileContentMerger(Map<String, String> map)
 
-ÐÐÐÐÐÐÐ 4
+ЗАДАНИЕ 4
 
 Check if file contains particular word. Pring 0 if no. Print number n which equals number of times it is contained in the file
 a) read file, save to string var

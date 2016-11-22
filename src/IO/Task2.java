@@ -14,8 +14,8 @@ import java.util.Map;
 public class Task2 {
     public static void main(String[] args) {
 
-        String inPath = "src/module11/homework/Task";
-        String outPath = "src/module11/homework/output.txt";
+        String inPath = "src/IO/Task";
+        String outPath = "src/IO/output.txt";
         WorkFile workFile = new WorkFile(inPath,outPath);
 
         // replace parameters

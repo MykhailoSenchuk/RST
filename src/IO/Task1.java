@@ -14,12 +14,12 @@ import java.util.Map;
  */
 public class Task1 {
     public static void main(String[] args) {
-        String path = "src/module11/homework/Task";
+        String path = "src/IO/Task";
         WorkFile workFile = new WorkFile(path);
 
         Map<String, String> replaceTo = new HashMap<String, String>() {
             {
-                put("file", "bitch");
+                put("file", "BITCH");
             }
         };
 

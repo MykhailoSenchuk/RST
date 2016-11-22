@@ -1,4 +1,4 @@
-package rst;
+package HashTable;
 
 /**
  * Created by Mykhailo on 11/6/2016.
@@ -34,33 +34,33 @@ public class MapTest {
     public static void TestContains(IMhsMap<String, MapTest> map){
         map.clear();
 
-        map.add("rst", new MapTest(1));
-        assert map.contains("rst");
+        map.add("HashTable", new MapTest(1));
+        assert map.contains("HashTable");
 
         map.clear();
-        assert !map.contains("rst");
+        assert !map.contains("HashTable");
     }
 
     public static void TestGet(IMhsMap<String, MapTest> map){
         map.clear();
 
         MapTest value = new MapTest(1);
-        map.add("rst", value);
-        assert value == map.get("rst");
+        map.add("HashTable", value);
+        assert value == map.get("HashTable");
 
         assert map.get("mhs") == null;
 
         map.clear();
-        assert map.get("rst") == null;
+        assert map.get("HashTable") == null;
     }
 
     public static void TestRemove(IMhsMap<String, MapTest> map){
         map.clear();
 
         MapTest value = new MapTest(1);
-        map.add("rst", value);
-        map.remove("rst");
-        assert !map.contains("rst");
+        map.add("HashTable", value);
+        map.remove("HashTable");
+        assert !map.contains("HashTable");
 
         assert map.size() == 0;
     }

@@ -1,4 +1,4 @@
-package rst;
+package HashTable;
 
 /**
  * Created by Mykhailo on 11/6/2016.
