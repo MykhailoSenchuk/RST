@@ -5,6 +5,7 @@ package HashTable;
  */
 public class MhsMap<Key,Value> implements IMhsMap<Key, Value> {
 
+    //TODO: please, add support of hash collisions (i.e., multiple objects with identical hash code)
     private Pair<Key,Value>[] data;
     private int counter;
 
